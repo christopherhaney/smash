@@ -1,0 +1,5 @@
+./backpack.sh: line 195: ./smash: Is a directory
+timeout: failed to run command ‘./smash’: Permission denied
+timeout: failed to run command ‘./smash’: Permission denied
+timeout: failed to run command ‘./smash’: Permission denied
+timeout: failed to run command ‘./smash’: Permission denied

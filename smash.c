@@ -9,8 +9,9 @@
 #include <fcntl.h> //For open API
 #include <signal.h> //To prevent CTRL+C from terminating smash
 #include <pthread.h> //To create a thread to wait for child process
+#include "smash.h" //Function prototypes for smash.c
 
-#define MAXLINE 4028 //Maximum length of stdin to prevent buffer overflow attack
+#define MAXLINE 4096 //Maximum length of stdin to prevent buffer overflow attack
 
 //Variable Initialization
 char* token; //Char pointer to pass line through strtok function
@@ -22,15 +23,6 @@ char formattedArg[MAXLINE] = {0}; //Arg to be concatenated into string str
 int totalTokens; //Track total tokens in line for parser functions
 char* segArray[10][10]; //2D array to segment tokenArray
 
-//Function prototypes
-void cdCommand(const char* filepath); //Function to change working directory
-void exitCommand(); //Function to exit smash if "exit" is the input
-void lineParser(); //Function to parse tokens from stdin
-void segParser(); //Function to split tokens into segments for pipes
-void executeCommand();
-void executeExtCommand();
-void *reaperThread(void* arg); //Wait for child processes to complete and then print information
-
 int main(void)
 {
 	/*Ignore SIGINT so CTRL+C doesn't exit the shell
@@ -38,7 +30,7 @@ int main(void)
 	signal(SIGTERM,SIG_IGN);
 	signal(SIGQUIT,SIG_IGN);
 	*/	
-	//Before we begin scanning for args, initialize history to track commands
+	
 	if(init_history() == 1) {
 		fprintf(stderr,"History buffer wasn't properly initialized, or it was not cleared of previous data.");
 		return 1;

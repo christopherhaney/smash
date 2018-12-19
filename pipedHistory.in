@@ -1,0 +1,2 @@
+cat *.c *.h | sed '/^$/d' | wc -l
+history

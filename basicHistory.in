@@ -1,0 +1,6 @@
+ls -lF
+cd .
+pwd
+history
+history
+exit
